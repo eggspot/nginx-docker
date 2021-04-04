@@ -6,7 +6,7 @@ ENV NGINX_RTMP_MODULE_VERSION 1.2.1
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y ca-certificates openssl libssl-dev apt-utils gcc g++ make && \
+    apt-get install -y ca-certificates openssl libssl-dev apt-utils gcc g++ make stunnel4 && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and decompress Nginx
@@ -45,7 +45,8 @@ RUN cd /tmp/build/nginx/${NGINX_VERSION} && \
 
 # Forward logs to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
-    ln -sf /dev/stderr /var/log/nginx/error.log
+    ln -sf /dev/stderr /var/log/nginx/error.log && \
+    ln -sf /dev/stdout /var/log/stunnel4/stunnel.log
 
 # Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
@@ -53,8 +54,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
     npm install --global yarn@v1.22.5
 
 # Clean up
-RUN DEBIAN_FRONTEND=noninteractive apt-get autoremove && \
+RUN apt-get autoremove && \
     apt-get clean
+
+COPY example-conf/rtmp/nginx.conf /etc/nginx/nginx.conf
+COPY example-conf/rtmp/stunnel.conf /etc/stunnel/stunnel.conf
 
 # Default web port
 EXPOSE 80
