@@ -57,8 +57,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
 RUN apt-get autoremove && \
     apt-get clean
 
-COPY example-conf/rtmp/nginx.conf /etc/nginx/nginx.conf
-COPY example-conf/rtmp/stunnel.conf /etc/stunnel/stunnel.conf
+COPY example/rtmp/nginx.conf /etc/nginx/nginx.conf
+COPY example/rtmp/stunnel.conf /etc/stunnel/stunnel.conf
 
 # Default web port
 EXPOSE 80
