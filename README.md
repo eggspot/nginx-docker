@@ -15,13 +15,18 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ## Use Stunnel with ENTRYPOINT in docker 
 Example
-```bash
+```sh
 #!/bin/sh
   
-# turn on bash's job control
-set -e
+# create stunnel4 log file
+touch /var/log/stunnel4/stunnel.log & 
 
+# set stunnel4 log file permission
+chmod -R 777 /var/log/stunnel4/stunnel.log &
+
+# start stunnel4
 /etc/init.d/stunnel4 start &
+
 # Start nginx
 nginx -g "daemon off;"
 ```
