@@ -58,6 +58,7 @@ RUN apt-get autoremove && \
     apt-get clean
 
 COPY example/rtmp/nginx.conf /etc/nginx/nginx.conf
+COPY example/rtmp/stunnel4 /etc/default/stunnel4
 COPY example/rtmp/stunnel.conf /etc/stunnel/stunnel.conf
 
 # Default web port
