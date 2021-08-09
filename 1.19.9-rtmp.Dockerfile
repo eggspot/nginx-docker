@@ -6,7 +6,7 @@ ENV NGINX_RTMP_MODULE_VERSION 1.2.1
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y ca-certificates openssl libssl-dev apt-utils gcc g++ make stunnel4 gettext-base ffmpeg && \
+    apt-get install -y ca-certificates openssl libssl-dev apt-utils gcc g++ make stunnel4 gettext-base ffmpeg libaio libaio-devel && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and decompress Nginx
@@ -37,6 +37,7 @@ RUN cd /tmp/build/nginx/${NGINX_VERSION} && \
         --with-http_ssl_module \
         --with-threads \
         --with-ipv6 \
+        --with-file-aio \
         --add-module=/tmp/build/nginx-rtmp-module/nginx-rtmp-module-${NGINX_RTMP_MODULE_VERSION} && \
     make -j $(getconf _NPROCESSORS_ONLN) && \
     make install && \
