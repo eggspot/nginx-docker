@@ -6,7 +6,7 @@ ENV NGINX_RTMP_MODULE_VERSION 1.2.1
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y ca-certificates openssl libssl-dev apt-utils gcc g++ make stunnel4 gettext-base ffmpeg libaio libaio-devel && \
+    apt-get install -y ca-certificates openssl libssl-dev apt-utils gcc g++ make stunnel4 gettext-base ffmpeg libaio1 && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and decompress Nginx
