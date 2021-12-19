@@ -1,6 +1,6 @@
-FROM buildpack-deps:stretch
+FROM buildpack-deps:stretch 
 
-# Versions of Nginx and nginx-rtmp-module to use
+# For testing optimize HLS, we do not use it yet in prod. Versions of Nginx and nginx-rtmp-module to use 
 ENV NGINX_VERSION nginx-1.21.1
 ENV NGINX_RTMP_MODULE_VERSION 1.2.9
 
@@ -52,7 +52,8 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 # Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
-    npm install --global yarn@v1.22.5
+    npm install --global yarn@v1.22.5 \ 
+    npm install forever -g
 
 # Clean up
 RUN apt-get autoremove && \
