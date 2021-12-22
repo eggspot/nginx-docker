@@ -46,8 +46,9 @@ RUN cd /tmp/build/nginx/${NGINX_VERSION} && \
 
 # Forward logs to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
-    ln -sf /dev/stderr /var/log/nginx/error.log && \
-    ln -sf /dev/stdout /var/log/stunnel4/stunnel.log
+    ln -sf /dev/stderr /var/log/nginx/error.log
+    # && \
+    #ln -sf /dev/stdout /var/log/stunnel4/stunnel.log
 
 # Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
